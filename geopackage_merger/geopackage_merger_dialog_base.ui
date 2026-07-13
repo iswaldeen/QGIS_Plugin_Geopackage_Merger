@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GeopackageMergerDialogBase</class>
+ <widget class="QDialog" name="GeopackageMergerDialogBase">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>760</width><height>600</height></rect></property>
+  <property name="minimumSize"><size><width>760</width><height>600</height></size></property>
+  <property name="windowTitle"><string>Geopackage Merger</string></property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <layout class="QHBoxLayout" name="headerLayout">
+     <item>
+      <widget class="QLabel" name="titleLabel">
+       <property name="text"><string>Geopackage Merger</string></property>
+       <property name="styleSheet"><string>font-size: 20px; font-weight: bold; padding: 8px; background-color: rgb(174, 199, 226); border-radius: 6px;</string></property>
+      </widget>
+     </item>
+     
+     <item>
+      <widget class="QPushButton" name="settingsButton">
+       <property name="minimumSize"><size><width>34</width><height>34</height></size></property>
+       <property name="maximumSize"><size><width>34</width><height>34</height></size></property>
+       <property name="text"><string/></property>
+       <property name="toolTip"><string>Settings</string></property>
+       <property name="styleSheet"><string>QPushButton { border: 1px solid #8aa895; border-radius: 17px; background-color: rgb(174, 199, 226); } QPushButton:hover { background-color: rgb(156, 181, 209); } QPushButton:pressed { background-color: rgb(142, 168, 196);}</string></property>
+      </widget>
+     </item>
+	 <item>
+      <widget class="QPushButton" name="helpButton">
+       <property name="minimumSize"><size><width>34</width><height>34</height></size></property>
+       <property name="maximumSize"><size><width>34</width><height>34</height></size></property>
+       <property name="text"><string/></property>
+       <property name="toolTip"><string>Help</string></property>
+       <property name="styleSheet"><string>QPushButton { border: 1px solid #8aa895; border-radius: 17px; background-color: rgb(174, 199, 226); } QPushButton:hover { background-color: rgb(156, 181, 209); } QPushButton:pressed { background-color: rgb(142, 168, 196);}</string></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="introLabel">
+     <property name="wordWrap"><bool>true</bool></property>
+     <property name="text"><string>Select a main GeoPackage and one or more source GeoPackages.</string></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="inputGroupBox">
+     <property name="title"><string>1. Select GeoPackages</string></property>
+     <layout class="QGridLayout" name="inputGridLayout">
+      <item row="0" column="0"><widget class="QLabel" name="targetLabel"><property name="text"><string>Main GeoPackage:</string></property></widget></item>
+      <item row="0" column="1"><widget class="QLineEdit" name="targetLineEdit"><property name="readOnly"><bool>true</bool></property><property name="placeholderText"><string>Select the main GeoPackage to receive copied data</string></property></widget></item>
+      <item row="0" column="2"><widget class="QPushButton" name="targetBrowseButton"><property name="text"><string>Browse...</string></property></widget></item>
+      <item row="1" column="0"><widget class="QLabel" name="sourceLabel"><property name="text"><string>Source GeoPackages:</string></property></widget></item>
+      <item row="1" column="1"><widget class="QListWidget" name="sourceListWidget"><property name="minimumHeight"><number>115</number></property></widget></item>
+      <item row="1" column="2">
+       <layout class="QVBoxLayout" name="sourceButtonsLayout">
+        <item><widget class="QPushButton" name="addSourcesButton"><property name="text"><string>Add...</string></property></widget></item>
+        <item><widget class="QPushButton" name="removeSourceButton"><property name="text"><string>Remove</string></property></widget></item>
+        <item><widget class="QPushButton" name="clearSourcesButton"><property name="text"><string>Clear</string></property></widget></item>
+        <item><spacer name="sourceButtonSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>20</height></size></property></spacer></item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="checksSummaryGroupBox">
+     <property name="title"><string>2. Mandatory checks</string></property>
+     <layout class="QVBoxLayout" name="checksSummaryLayout">
+      <item>
+       <widget class="QLabel" name="checksSummaryLabel">
+        <property name="wordWrap"><bool>true</bool></property>
+        <property name="text"><string>The following checks always run: layer compatibility, field compatibility, invalid or empty geometries, duplicated unique fields, missing layers, raster detection and QGIS layer styles.</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="actionLayout">
+     <item><widget class="QPushButton" name="validateButton"><property name="text"><string>Run checks only</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+     <item><widget class="QPushButton" name="mergeButton"><property name="text"><string>Validate and merge</string></property><property name="enabled"><bool>false</bool></property><property name="styleSheet"><string>font-weight: bold;</string></property></widget></item>
+     <item><widget class="QPushButton" name="saveReportButton"><property name="text"><string>Save report...</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+	 <item><widget class="QPushButton" name="clearReportButton"><property name="text"><string>Clear report</string></property><property name="enabled"><bool>false</bool></property><property name="toolTip"><string>Clear the current report text</string></property></widget></item>
+     <item><spacer name="actionSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="progressStatusLayout">
+     <property name="spacing"><number>4</number></property>
+     <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="minimum"><number>0</number></property>
+       <property name="maximum"><number>0</number></property>
+       <property name="value"><number>0</number></property>
+       <property name="textVisible"><bool>false</bool></property>
+       <property name="minimumHeight"><number>10</number></property>
+       <property name="maximumHeight"><number>10</number></property>
+       <property name="toolTip"><string>Shows progress while checks or merging are running</string></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="statusLabel">
+       <property name="minimumHeight"><number>20</number></property>
+       <property name="wordWrap"><bool>true</bool></property>
+       <property name="text"><string/></property>
+       <property name="toolTip"><string>Shows whether the checks passed or need attention</string></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="reportGroupBox">
+     <property name="title"><string>Report</string></property>
+     <layout class="QVBoxLayout" name="reportLayout">
+      <item><widget class="QPlainTextEdit" name="reportTextEdit"><property name="readOnly"><bool>true</bool></property><property name="minimumHeight"><number>185</number></property><property name="placeholderText"><string>Run checks to see the report here.</string></property></widget></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="button_box"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="standardButtons"><set>QDialogButtonBox::Close</set></property></widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
