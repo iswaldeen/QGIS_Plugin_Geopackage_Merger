@@ -24,7 +24,6 @@
      <layout class="QVBoxLayout" name="optionsLayout">
       <item><widget class="QCheckBox" name="backupCheckBox"><property name="text"><string>Create a timestamped backup of the main GeoPackage before copying</string></property><property name="checked"><bool>true</bool></property></widget></item>
       <item><widget class="QCheckBox" name="createMissingLayersCheckBox"><property name="text"><string>Create missing layers or attribute tables in the main GeoPackage</string></property><property name="checked"><bool>false</bool></property></widget></item>
-      <item><widget class="QCheckBox" name="copyStylesCheckBox"><property name="text"><string>Copy QGIS layer styles stored in the source GeoPackages where possible</string></property><property name="checked"><bool>true</bool></property></widget></item>
       <item><widget class="QCheckBox" name="ignoreEmptySourceLayersCheckBox"><property name="text"><string>Ignore empty source layers and attribute tables</string></property><property name="checked"><bool>true</bool></property></widget></item>
      </layout>
     </widget>

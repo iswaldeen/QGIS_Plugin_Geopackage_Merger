@@ -27,7 +27,6 @@ class GeopackageMergerSettingsDialog(QtWidgets.QDialog, SETTINGS_FORM_CLASS):
     CHECKBOX_DEFAULTS = {
         "backupCheckBox": True,
         "createMissingLayersCheckBox": False,
-        "copyStylesCheckBox": True,
         "ignoreEmptySourceLayersCheckBox": True,
     }
 
@@ -95,9 +94,9 @@ class GeopackageMergerDialog(QtWidgets.QDialog, FORM_CLASS):
         """Initialise the inline progress bar and status text used during checks and merging."""
         progress_bar = getattr(self, "progressBar", None)
         if progress_bar is not None:
-            # The plugin runs checks synchronously, so an indeterminate bar is clearer than fake percentages.
-            progress_bar.setRange(0, 0)
-            progress_bar.setTextVisible(False)
+            progress_bar.setRange(0, 100)
+            progress_bar.setValue(0)
+            progress_bar.setTextVisible(True)
             progress_bar.setVisible(False)
 
         status_label = getattr(self, "statusLabel", None)
@@ -147,39 +146,6 @@ class GeopackageMergerDialog(QtWidgets.QDialog, FORM_CLASS):
         button_box = getattr(self, "button_box", None)
         if button_box is not None:
             button_box.rejected.connect(self.reject)
-    
-    def _reset_dialog(self):
-        """Restore the dialog to its default state."""
-
-        # Main GeoPackage
-        self.targetLineEdit.clear()
-
-        # Source GeoPackages
-        self.sourceListWidget.clear()
-
-        # Report
-        self.reportTextEdit.clear()
-
-        # Status text
-        if hasattr(self, "statusLabel"):
-            self.statusLabel.clear()
-
-        # Progress bar
-        if hasattr(self, "progressBar"):
-            self.progressBar.setVisible(False)
-
-        # Disable merge until checks are run again
-        self.mergeButton.setEnabled(False)
-    
-    def reject(self):
-        """Called when the dialog is closed using Close, Escape or the window X."""
-        self._reset_dialog()
-        super().reject()
-    
-    def closeEvent(self, event):
-        """Reset the dialog when the window is closed."""
-        self._reset_dialog()
-        super().closeEvent(event)
     
     def _setup_help_button(self):
         """Set up the help button and open the bundled help document."""

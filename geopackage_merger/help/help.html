@@ -1,238 +1,226 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Geopackage Merger Help</title>
 <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.55;
-      margin: 24px;
-      color: #222;
-      background: #fff;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgb(174, 199, 226);
-      padding: 14px 16px;
-      border-radius: 8px;
-      margin-bottom: 18px;
-    }
-    .header img {
-      width: 42px;
-      height: 42px;
-    }
-    h1 {
-      font-size: 24px;
-      margin: 0;
-    }
-    h2 {
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 5px;
-      margin-top: 28px;
-      font-size: 19px;
-    }
-    h3 {
-      margin-top: 18px;
-      font-size: 16px;
-    }
-    ul, ol {
-      padding-left: 24px;
-    }
-    li {
-      margin-bottom: 5px;
-    }
-    .note {
-      background: #f4f7fb;
-      border-left: 4px solid rgb(174, 199, 226);
-      padding: 10px 12px;
-      margin: 16px 0;
-    }
-    .warning {
-      background: #fff7e8;
-      border-left: 4px solid #d99528;
-      padding: 10px 12px;
-      margin: 16px 0;
-    }
-    .section-box {
-      border: 1px solid #d6d6d6;
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin: 14px 0;
-      background: #fafafa;
-    }
-    .icon-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 8px 0;
-    }
-    .icon-row img {
-      width: 28px;
-      height: 28px;
-    }
-    code {
-      background: #f1f1f1;
-      padding: 2px 4px;
-      border-radius: 3px;
-    }
-  
-.button{
-display:inline-block;
-padding:3px 10px;
-border:1px solid #8a8a8a;
-border-radius:4px;
-background:linear-gradient(#fafafa,#e6e6e6);
-box-shadow:inset 0 1px 0 #fff;
-font-size:13px;
-font-weight:bold;
-white-space:nowrap;
-}
-.status-good {
-  color: #2e7d32;
-  font-weight: bold;
-}
-.status-warning {
-  color: #c46a00;
-  font-weight: bold;
-}
-.status-error {
-  color: #b3261e;
-  font-weight: bold;
-}
-.progress-example {
-  display: block;
-  width: 220px;
-  height: 12px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #d9e8f7 0%, #f7f7f7 70%);
-  margin: 8px 0;
-}
+body { font-family: Arial, Helvetica, sans-serif; line-height: 1.55; margin: 24px; color: #222; background: #fff; }
+.header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; margin-bottom: 18px; border-radius: 8px; background: rgb(174, 199, 226); }
+.header img { width: 42px; height: 42px; }
+h1 { margin: 0; font-size: 24px; }
+h2 { margin-top: 30px; padding-bottom: 5px; border-bottom: 1px solid #ccc; font-size: 19px; }
+h3 { margin: 18px 0 6px; font-size: 16px; }
+p { margin: 8px 0; }
+ul, ol { padding-left: 24px; }
+li { margin-bottom: 6px; }
+a { color: #235a8c; }
+.contents { padding: 12px 16px; border: 1px solid #d6d6d6; border-radius: 8px; background: #fafafa; }
+.contents ul { columns: 2; margin: 8px 0; }
+.box { padding: 12px 14px; margin: 14px 0; border: 1px solid #d6d6d6; border-radius: 8px; background: #fafafa; }
+.note { padding: 10px 12px; margin: 16px 0; border-left: 4px solid rgb(174, 199, 226); background: #f4f7fb; }
+.warning { padding: 10px 12px; margin: 16px 0; border-left: 4px solid #d99528; background: #fff7e8; }
+.good { padding: 10px 12px; margin: 16px 0; border-left: 4px solid #2e7d32; background: #f2f8f2; }
+.button { display: inline-block; padding: 3px 10px; border: 1px solid #8a8a8a; border-radius: 4px; background: linear-gradient(#fafafa, #e6e6e6); box-shadow: inset 0 1px 0 #fff; font-size: 13px; font-weight: bold; white-space: nowrap; }
+.icon-row { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+.icon-row img { width: 28px; height: 28px; }
+.status-good { color: #2e7d32; font-weight: bold; }
+.status-warning { color: #c46a00; font-weight: bold; }
+.status-error { color: #b3261e; font-weight: bold; }
+code { padding: 2px 4px; border-radius: 3px; background: #eee; }
+table { width: 100%; margin: 12px 0; border-collapse: collapse; }
+th, td { padding: 8px; border: 1px solid #d6d6d6; text-align: left; vertical-align: top; }
+th { background: #edf3f8; }
+@media (max-width: 650px) { body { margin: 14px; } .contents ul { columns: 1; } }
 </style>
 </head>
 <body>
 <div class="header">
-<img alt="Geopackage Merger icon" src="../icons/geopackage_merger_icon.png"/>
-<h1>Geopackage Merger</h1>
-</div>
-<p>
-    Geopackage Merger compares one main GeoPackage with one or more source GeoPackages before copying data across. It is designed to help identify duplicates, missing layers, field mismatches, invalid geometries and other issues before a merge is carried out.
-  </p>
-<div class="note">
-<span class="button">Run checks only</span> does not copy any data. Data is only copied when you click <span class="button">Validate and merge</span> and the validation checks pass.
-  </div>
-<h2>Step 1: Add the GeoPackages</h2>
-<div class="section-box">
-<h3>Main GeoPackage</h3>
-<p>
-      Use <span class="button">Browse...</span> to select the main GeoPackage. This is the file that will receive the copied data.
-    </p>
-<h3>Source GeoPackages</h3>
-<p>
-      Use <span class="button">Add...</span> to add one or more source GeoPackages. These contain the data you want to copy into the main GeoPackage.
-    </p>
-<ul>
-<li><span class="button">Add...</span> adds source GeoPackages to the list.</li>
-<li><span class="button">Remove</span> removes the selected source GeoPackage from the list.</li>
-<li><span class="button">Clear</span> removes all source GeoPackages from the list.</li>
-</ul>
-</div>
-<h2>Step 2: Use the main buttons</h2>
-<div class="section-box">
-<ul>
-<li><span class="button">Run checks only</span> checks the selected files and produces a report. Nothing is copied.</li>
-<li><span class="button">Validate and merge</span> runs the checks and, if no blocking issues are found, copies the data into the main GeoPackage.</li>
-<li><span class="button">Save report...</span> saves the report as a text file.</li>
-<li><span class="button">Clear report</span> clears the report panel without changing the selected GeoPackages.</li>
-</ul>
-</div>
-<h2>Progress and status messages</h2>
-<div class="section-box">
-<p>
-  When checks or merging are running, a progress bar appears underneath the main action buttons and above the report section.
-</p>
-<span class="progress-example" aria-label="Progress bar example"></span>
-<p>
-  A short status message is also shown in the same area:
-</p>
-<ul>
-<li><span class="status-warning">Orange text</span> means something needs checking, or the selected GeoPackages have changed and checks should be run again.</li>
-<li><span class="status-good">Green text</span> means the checks passed or the merge completed successfully.</li>
-<li><span class="status-error">Red text</span> means the merge or validation failed and the report should be reviewed.</li>
-</ul>
+  <img src="../icons/geopackage_merger_icon.png" alt="Geopackage Merger icon">
+  <h1>Geopackage Merger</h1>
 </div>
 
-<h2>Step 3: Read the report</h2>
-<p>After running the checks, review each section of the report.</p>
-<div class="section-box">
-<p><strong>Blocking issues</strong> – Problems that must be resolved before the merge can continue. These include missing layers, field mismatches, CRS or geometry type mismatches, invalid geometries and duplicate key values.</p>
-<p><strong>Warnings</strong> – Items that should be reviewed before merging. They may not always prevent a merge, but they could indicate potential problems.</p>
-<p><strong>Information</strong> – General information about the GeoPackages, such as empty layers being ignored, stored layer styles being detected or layers that will be created if the relevant setting is enabled.</p>
-<p><strong>Merge complete</strong> – Displayed after a successful merge and summarises how many features were copied. If backups are enabled, the backup location is also reported.</p>
-</div>
-<h2>What the checks look for</h2>
+<p>Geopackage Merger checks one main GeoPackage against one or more source GeoPackages, then copies compatible data into the main file. It helps identify duplicates, incompatible structures and damaged geometries before anything is merged.</p>
 
-<ul>
-<li>Missing or unreadable GeoPackage files.</li>
-<li>Source files accidentally selected as the main file.</li>
-<li>Missing layers or attribute tables in the main GeoPackage.</li>
-<li>Field name and field type mismatches.</li>
-<li>CRS or geometry type mismatches.</li>
-<li>Invalid or empty geometries.</li>
-<li>Duplicate unique or key fields.</li>
-<li>Raster tile tables, which are reported but not copied by this version.</li>
-<li>Stored QGIS layer style records.</li>
-</ul>
-<h2>Source tracking after merging</h2>
-<div class="section-box">
-<p>
-  When features are copied into the main GeoPackage, the plugin adds a field called <code>geopackage_source</code> to merged vector layers where needed.
-</p>
-<p>
-  This field stores the file path of the source GeoPackage that each copied feature came from. This makes it easier to trace features back to their original GeoPackage after several files have been merged.
-</p>
+<div class="note"><strong>Nothing is copied when you use <span class="button">Run checks only</span>.</strong> Data is copied only after you select <span class="button">Validate and merge</span> and no critical issues are found.</div>
+
+<div class="contents">
+  <strong>On this page</strong>
+  <ul>
+    <li><a href="#before">Before you start</a></li>
+    <li><a href="#steps">Using the plugin</a></li>
+    <li><a href="#buttons">Buttons</a></li>
+    <li><a href="#checks">Mandatory checks</a></li>
+    <li><a href="#fields">Fields and data types</a></li>
+    <li><a href="#report">Understanding the report</a></li>
+    <li><a href="#merge">What happens during a merge</a></li>
+    <li><a href="#settings">Settings</a></li>
+    <li><a href="#status">Progress and status</a></li>
+    <li><a href="#problems">Common problems</a></li>
+  </ul>
 </div>
-<h2>Settings</h2>
-<div class="icon-row">
-<img alt="Settings icon" src="../icons/settings.png"/>
-<span>Click the settings button to change how the merge behaves.</span>
+
+<h2 id="before">Before you start</h2>
+<div class="box">
+  <ul>
+    <li>Close other programs that may be editing the selected GeoPackages.</li>
+    <li>Use the most complete and trusted file as the <strong>Main</strong> GeoPackage.</li>
+    <li>The main file cannot also be selected as a source.</li>
+    <li>Keep the backup setting enabled unless you already have a secure copy.</li>
+  </ul>
 </div>
-<div class="section-box">
-<ul>
-<li><strong>Create a timestamped backup of the main GeoPackage before copying</strong> creates a backup before any data is merged. This is recommended.</li>
-<li><strong>Create missing layers or attribute tables in the main GeoPackage</strong> allows the plugin to create missing items in the main GeoPackage when they exist in a source GeoPackage.</li>
-<li><strong>Copy QGIS layer styles stored in the source GeoPackages where possible</strong> copies stored QGIS styles from the source files into the main GeoPackage where possible.</li>
-<li><strong>Ignore empty source layers and attribute tables</strong> allows empty source items to be skipped rather than treated as a problem.</li>
-<li><strong>Saved settings</strong> are remembered between QGIS sessions, so options do not need to be reselected every time the plugin or project is reopened.</li>
-</ul>
+
+<h2 id="steps">Using the plugin</h2>
+<div class="box">
+  <h3>1. Select main GeoPackage</h3>
+  <p>Select <span class="button">Browse...</span> and choose the GeoPackage that will receive the data. The report refers to this file as <strong>Main</strong>.</p>
+
+  <h3>2. Select source GeoPackages</h3>
+  <p>Select <span class="button">Add...</span> and choose one or more files containing data to copy. Each source is numbered in the list as <strong>1</strong>, <strong>2</strong>, <strong>3</strong> and so on.</p>
+  <p>If a source is removed, the remaining sources are renumbered automatically. Reports use the matching labels <strong>Source 1</strong>, <strong>Source 2</strong> and so on.</p>
+
+  <h3>3. Run the mandatory checks</h3>
+  <p>Select <span class="button">Run checks only</span> to create a report without changing any GeoPackage. Resolve critical issues, then run the checks again.</p>
 </div>
-<h2>Closing the dialog</h2>
-<div class="section-box">
-<p>
-  Closing the main dialog using the window <strong>X</strong> or the <span class="button">Close</span> button resets the main GeoPackage selection, source list, report text, status message and progress bar.
-</p>
-<p>
-  Saved settings are not reset when the dialog closes.
-</p>
+
+<h2 id="buttons">Buttons</h2>
+<table>
+  <tr><th>Button</th><th>What it does</th></tr>
+  <tr><td><span class="button">Browse...</span></td><td>Selects the main GeoPackage.</td></tr>
+  <tr><td><span class="button">Add...</span></td><td>Adds one or more source GeoPackages. Duplicate selections and the main file are not added.</td></tr>
+  <tr><td><span class="button">Remove</span></td><td>Removes the selected source from the list.</td></tr>
+  <tr><td><span class="button">Clear</span></td><td>Removes every source from the list.</td></tr>
+  <tr><td><span class="button">Run checks only</span></td><td>Runs all mandatory checks and creates a report. No data is copied.</td></tr>
+  <tr><td><span class="button">Validate and merge</span></td><td>Runs the checks again and merges only when no critical issues are found.</td></tr>
+  <tr><td><span class="button">Save report...</span></td><td>Saves the current report as a text file.</td></tr>
+  <tr><td><span class="button">Clear report</span></td><td>Clears the report without changing the selected files.</td></tr>
+  <tr><td><span class="button">Close</span></td><td>Closes the window. Current selections, report and status are retained when the plugin is reopened during the same QGIS session.</td></tr>
+</table>
+
+<h2 id="checks">Mandatory checks</h2>
+<p>All checks run automatically. They do not need to be selected individually.</p>
+<div class="box">
+  <h3>Files and contents</h3>
+  <ul>
+    <li>Checks that the main and source paths exist and use the <code>.gpkg</code> extension.</li>
+    <li>Prevents the same source being selected more than once.</li>
+    <li>Prevents the main GeoPackage being used as a source.</li>
+    <li>Detects missing vector layers and attribute-only tables.</li>
+    <li>Reports raster tile tables as warnings because raster layers are not copied.</li>
+  </ul>
+
+  <h3>Layer compatibility</h3>
+  <ul>
+    <li>Checks that matching layers use compatible coordinate reference systems.</li>
+    <li>Checks that matching layers use the same geometry type, such as point, line or polygon.</li>
+    <li>Checks field names, field types and required fields.</li>
+  </ul>
+
+  <h3>Geometry quality</h3>
+  <ul>
+    <li>Null, empty and invalid source geometries are critical.</li>
+    <li>The report identifies the source number, layer and feature FID.</li>
+    <li>Features with unusable geometry are never copied.</li>
+  </ul>
+
+  <h3>Duplicate identifiers</h3>
+  <p>Configured identifiers such as context, trench, drawing, sample, intervention, section and small-find numbers are checked between the main and source files and between different sources. A matching configured value in different GeoPackages is critical.</p>
+
+  <h3>Exact feature duplicates</h3>
+  <p>An exact duplicate is critical when features are in the same named layer, have the same configured identifying value, have exactly matching geometry, and occur in different GeoPackages. Matches contained only within one GeoPackage are not reported by this cross-file check.</p>
 </div>
-<h2>Help button</h2>
-<div class="icon-row">
-<img alt="Help icon" src="../icons/question_mark.png"/>
-<span>Click the help button to open this document from inside the plugin.</span>
+
+<h2 id="fields">Fields and data types</h2>
+<div class="box">
+  <h3>Fields missing from Main</h3>
+  <p>If a source contains a field that is missing from the matching main layer or table, the field is added to Main. Existing main records receive <code>NULL</code> in the new field.</p>
+
+  <h3>Fields missing from a source</h3>
+  <p>Imported records receive <code>NULL</code>, or the main field default where applicable. If the field is required, does not allow null values and has no usable default, the report shows a critical issue.</p>
+
+  <h3>Different data types</h3>
+  <p>The main field type is authoritative. When a source uses a different type, the plugin checks the actual values before merging.</p>
+  <ul>
+    <li>Safe conversions are reported as Information and performed during the merge.</li>
+    <li>Numeric text such as <code>"12.5"</code> can be converted to a real number.</li>
+    <li>A real value can become an integer only when it is a whole number.</li>
+    <li>Blank text can become <code>NULL</code> when the destination permits it.</li>
+    <li>Values that cannot be converted safely are critical and prevent the merge.</li>
+    <li>Binary values cannot be converted to ordinary text safely.</li>
+  </ul>
 </div>
-<h2>Recommended workflow</h2>
-<ol>
-<li>Select the main GeoPackage.</li>
-<li>Add the source GeoPackages.</li>
-<li>Click <span class="button">Run checks only</span>.</li>
-<li>Review the report, status message and any blocking issues.</li>
-<li>Run the checks again if changes were made.</li>
-<li>Click <span class="button">Validate and merge</span> once the report is clear.</li>
-<li>Save the report if you need a record of the checks or merge.</li>
-</ol>
+
+<h2 id="report">Understanding the report</h2>
+<div class="box">
+  <p>The <strong>Files</strong> section lists each full path once. Other sections use the shorter labels <strong>Main</strong>, <strong>Source 1</strong>, <strong>Source 2</strong> and so on.</p>
+  <table>
+    <tr><th>Section</th><th>Meaning</th></tr>
+    <tr><td><strong>Summary</strong></td><td>Shows the number of critical issues and warnings.</td></tr>
+    <tr><td><strong>Critical issues</strong></td><td>Must be fixed before merging. No data is copied while any critical issue remains.</td></tr>
+    <tr><td><strong>Warnings</strong></td><td>Do not prevent merging, but should be reviewed.</td></tr>
+    <tr><td><strong>Information</strong></td><td>Explains planned actions, safe field conversions and other useful details.</td></tr>
+    <tr><td><strong>Merge complete</strong></td><td>Confirms the number of copied features and shows the backup path when a backup was created.</td></tr>
+  </table>
+</div>
+
+<h2 id="merge">What happens during a merge</h2>
+<div class="box">
+  <ol>
+    <li>All validation checks run again using the current selections.</li>
+    <li>If a critical issue is found, the merge is cancelled before copying begins.</li>
+    <li>A timestamped backup is created when the backup setting is enabled.</li>
+    <li>Missing permitted fields are added and compatible values are converted.</li>
+    <li>Features and attribute-table records are copied into Main.</li>
+    <li>QGIS layers are refreshed after the merge.</li>
+  </ol>
+
+  <h3>Source tracking</h3>
+  <p>Merged vector layers contain a <code>geopackage_source</code> field. It stores the full source path for each copied feature so its origin can be traced later.</p>
+
+  <h3>Layer styles</h3>
+  <ul>
+    <li>Existing layers keep the styles already stored in Main.</li>
+    <li>If a missing layer is created, its source style is copied automatically where available.</li>
+    <li>Source styles do not overwrite styles belonging to existing main layers.</li>
+  </ul>
+</div>
+
+<h2 id="settings">Settings</h2>
+<div class="icon-row"><img src="../icons/settings.png" alt="Settings icon"><span>Use the settings button in the dialog or <strong>Plugins &gt; Geopackage Merger &gt; Settings</strong>.</span></div>
+<div class="box">
+  <ul>
+    <li><strong>Create a timestamped backup</strong> – makes a copy of Main before data is written. This is enabled by default and recommended.</li>
+    <li><strong>Create missing layers or attribute tables</strong> – permits missing items to be created from a source. When disabled, a missing item is critical.</li>
+    <li><strong>Ignore empty source layers and attribute tables</strong> – skips empty source items. This is enabled by default.</li>
+    <li>Settings are remembered between QGIS sessions.</li>
+  </ul>
+</div>
+
+<h2 id="status">Progress and status</h2>
+<div class="box">
+  <p>The progress bar and nearby message show what the plugin is doing during checks and merging. Large layers may take longer because each feature and geometry must be examined.</p>
+  <ul>
+    <li><span class="status-good">Green</span> – checks passed or the merge completed.</li>
+    <li><span class="status-warning">Orange</span> – selections changed, critical issues were found, or attention is required.</li>
+    <li><span class="status-error">Red</span> – validation or merging failed unexpectedly. Review the report.</li>
+  </ul>
+</div>
+
+<h2 id="problems">Common problems</h2>
+<table>
+  <tr><th>Problem</th><th>What to do</th></tr>
+  <tr><td><span class="button">Validate and merge</span> is unavailable</td><td>Select Main and at least one source, then run the checks. Changing a selection means checks must be run again.</td></tr>
+  <tr><td>A missing layer or table is critical</td><td>Enable creation of missing layers and tables in Settings, or add the missing item to Main manually.</td></tr>
+  <tr><td>A field conversion failed</td><td>Use the reported field and FID to correct the incompatible value in the source, then rerun the checks.</td></tr>
+  <tr><td>A duplicate identifier was found</td><td>Review the reported Main and Source FIDs. Correct or remove the duplicate before merging.</td></tr>
+  <tr><td>An invalid geometry was found</td><td>Repair or remove the reported source feature in QGIS, save the source and rerun the checks.</td></tr>
+  <tr><td>A raster table was reported</td><td>The warning does not block vector merging, but the raster content will not be copied.</td></tr>
+  <tr><td>The GeoPackage cannot be opened or written</td><td>Close other applications using the file and confirm that you have permission to edit its folder.</td></tr>
+</table>
+
+<div class="warning"><strong>Recommended:</strong> use <span class="button">Run checks only</span> first, review the full report, keep backups enabled and merge only after you understand every warning.</div>
+
+<h2>Help access</h2>
+<div class="icon-row"><img src="../icons/question_mark.png" alt="Help icon"><span>Open this page using the help button or <strong>Plugins &gt; Geopackage Merger &gt; Help</strong>.</span></div>
 </body>
 </html>

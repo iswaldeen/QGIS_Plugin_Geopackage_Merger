@@ -8,7 +8,7 @@ qgisMinimumVersion=3.0
 qgisMaximumVersion=4.99
 
 description=This plugin compares and checks geopackages before combining them into a single file.
-version=0.01
+version=0.02
 author=Isaac Thompson
 email=iswaldeen@outlook.com
 
@@ -22,7 +22,14 @@ repository=https://github.com/iswaldeen/QGIS_Plugin_Geopackage_Merger
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=<strong>0.01</strong>
+changelog=<strong>0.02</strong>
+ - Improved validation for duplicates, geometries, fields and data types.
+ - Added missing field handling and safe value conversion.
+ - Improved source numbering, reports, progress feedback and dialog layout.
+ - Preserved existing styles and added source styles for newly created layers.
+ - Updated help documentation.
+
+ <p><strong>0.01</strong>
  - Testing release of Geopackage Merger
 
 # Tags are comma separated with spaces allowed
